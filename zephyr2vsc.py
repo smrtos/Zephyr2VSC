@@ -115,7 +115,8 @@ def GenerateVSCConfigJSONs(everything):
     
     settingsDecoded["files.exclude"]["**/.github"] = True
     settingsDecoded["files.exclude"]["**/.known-issues"] = True
-    settingsDecoded["files.exclude"]["**/.vscode"] = True
+    settingsDecoded["files.exclude"]["**/.*"] = True
+    settingsDecoded["files.exclude"][".vscode"] = False
 
     cpropsDecoded["configurations"][0]["compileCommands"]= everything["compDBFileFullpath"]
     cpropsDecoded["configurations"][0]["compilerPath"]= everything["compilerPath"]
