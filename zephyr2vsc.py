@@ -19,6 +19,7 @@ def GetNinjaRules(everything):
             rules.append(m.group(1))
 
     everything["ninjaRules"] = list(set(rules))
+    print("Found [%d] ninja build rules in:\n[%s]\n" % (len(everything["ninjaRules"]), everything["ninjaRulesFile"]))
     return
 
 def GetAllCFilesRelativePath(everything):
@@ -35,6 +36,7 @@ def GetAllCFilesRelativePath(everything):
     everything["allCFiles"] = list(set(allCFiles))
 #    for cFile in allCFiles:
 #        print(cFile)
+    print("Found [%d] C source files in source dir:\n[%s]\n" % (len(everything["allCFiles"]), everything["srcDir"]))
     return
 
 def GetRelevantCFilesRelativePath(everything):
@@ -58,6 +60,7 @@ def GetRelevantCFilesRelativePath(everything):
     everything["cFiles"] = list(set(cFiles))
 #    for cFile in cFiles:
 #        print(cFile)
+    print("Found [%d] relevant C source files.\n" % len(everything["cFiles"]))
     return
 
 def GetExcludedCFilesRelativePath(everything):
@@ -65,14 +68,17 @@ def GetExcludedCFilesRelativePath(everything):
     allCFilesSet = set(everything["allCFiles"])
     excludeCFiles = allCFilesSet - relevantCFilesSet
     everything["excludeCFiles"] = list(set(excludeCFiles))
+    print("Exclude [%d] irrelevant C source files.\n" % len(everything["excludeCFiles"]))
     return
 
 def CreateDotVSCodeFolderInSrcDir(everything):
     vscodeDir = os.path.join(everything["srcDir"], ".vscode")
     everything["vscodeDir"] = vscodeDir
     if(os.path.exists(vscodeDir)):
+        print(".vscode folder already exists source dir:\n[%s]\n" % everything["srcDir"])
         return
     os.mkdir(vscodeDir)
+    print(".vscode folder generated for source dir:\n[%s]\n" % everything["srcDir"])
     return
 
 def GenerateCompilationDB(everything):
@@ -97,7 +103,7 @@ def GenerateCompilationDB(everything):
     f.close()   
 
     everything["compDBFileFullpath"] = compDBFileFullpath
-    print("Zephyr compilation DB is saved as: " + compDBFileFullpath)
+    print("Zephyr compilation DB is saved as:\n[%s]\n" % compDBFileFullpath)
     return
 
 def GenerateVSCConfigJSONs(everything):
@@ -132,20 +138,23 @@ def GenerateVSCConfigJSONs(everything):
     with open(targetCPropsJsonFullpath, "w") as f:
         json.dump(cpropsDecoded, f)
 
-
+    print("VS Code configuration JSON files generated:\n[%s]\n[%s]\n" % (targetSettingsJsonFullpath, targetCPropsJsonFullpath))
     return
 
 def GetNinjaRulesFile(everything):
     everything["ninjaRulesFile"]= os.path.join(everything["bldDir"], "rules.ninja")
+    print("Ninja rules file found:\n[%s]\n" % everything["ninjaRulesFile"])
     return
 
 def GetNinjaBuildFile(everything):
     everything["ninjaBldFile"]= os.path.join(everything["bldDir"], "build.ninja")
+    print("Ninja build file found:\n[%s]\n" % everything["ninjaBldFile"])
     return
 
 def LoadVSCJSONTemplates(everything):
     everything["settings.json"] = os.path.abspath(os.path.join(os.curdir, r"settings.json"))
-    everything["c_cpp_properties.json"] = os.path.abspath(os.path.join(os.curdir, r"c_cpp_properties.json"))    
+    everything["c_cpp_properties.json"] = os.path.abspath(os.path.join(os.curdir, r"c_cpp_properties.json"))
+    print("VS Code configuration JSON templates loaded.\n")
     return
 
 def DeriveOtheConfigs(everything):
@@ -156,7 +165,7 @@ def DeriveOtheConfigs(everything):
 
 
 def DoWork(everything):
-    print("Start generating VSCode workspace for Zephyr")
+    print("Start generating VSCode workspace for\n[%s]\n" % everything["srcDir"])
     DeriveOtheConfigs(everything)    
     GetNinjaRules(everything)
     GetRelevantCFilesRelativePath(everything)
@@ -165,7 +174,7 @@ def DoWork(everything):
 
     GenerateCompilationDB(everything)
     GenerateVSCConfigJSONs(everything)
-
+    print("Finished generating VSCode workspace for\n[%s]\n" % everything["srcDir"])
     return    
 
 def Usage():
