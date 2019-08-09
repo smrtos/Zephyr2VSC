@@ -1,0 +1,9 @@
+{
+    "files.exclude": {
+        "**/.github": true,
+        "**/.known-issues": true,
+		"**/.vscode": true
+    },
+    "C_Cpp.exclusionPolicy": "checkFilesAndFolders",
+	"cmake.configureOnOpen": false
+}

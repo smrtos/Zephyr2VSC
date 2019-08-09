@@ -1,0 +1,13 @@
+{
+    "configurations": [
+        {
+            "name": "Zephyr",
+            "compilerPath": "",
+            "cStandard": "c99",
+            "cppStandard": "c++11",
+            "intelliSenseMode": "gcc-x64",
+            "compileCommands": ""
+        }
+    ],
+    "version": 4
+}
