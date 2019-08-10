@@ -6,7 +6,11 @@
             "cStandard": "c99",
             "cppStandard": "c++11",
             "intelliSenseMode": "gcc-x64",
-            "compileCommands": ""
+            "compileCommands": "",
+            "browse": 
+			{
+                "limitSymbolsToIncludedHeaders": true
+            }
         }
     ],
     "version": 4

@@ -6,6 +6,5 @@
     },
     "C_Cpp.exclusionPolicy": "checkFilesAndFolders",
 	"C_Cpp.intelliSenseEngine": "Default",
-	"C_Cpp.default.browse.limitSymbolsToIncludedHeaders": true,
 	"cmake.configureOnOpen": false
 }
