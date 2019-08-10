@@ -89,6 +89,7 @@ def GenerateCompilationDB(everything):
     #cmdString = cmdString.replace(r"<COMPDB_OUTPUT>", compDBFileFullpath)
     cmdString = cmdString.replace(r"<RULES>", allRulesString)
 
+    print("Zephyr compilation DB will be saved as:\n[%s]\n" % compDBFileFullpath)
     with open(compDBFileFullpath, "w") as f:
         subprocess.run(cmdString, stdout=f)
 
