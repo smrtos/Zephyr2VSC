@@ -9,7 +9,7 @@ In future I may expand the scope of irrelevant file exclusion.
 But for .c file browsing, it suffices, I think.
 
 Due to https://github.com/microsoft/vscode-cpptools/issues/4059,
-pressing F12 on a function call can only goes to function prototype declaration for now.
+pressing F12 on a function call can only jump to function prototype declaration for now.
 
 
 
