@@ -185,11 +185,17 @@ def DoWork(everything):
     return    
 
 def Usage():
-    print("Usage:\n")
-    print("zephyr2vsc <srcDir> <bldDir> <compilerPath>")
-    print("\t <srcDir>: the source code folder to open in VS Code.")
-    print("\t <bldDir>: the build folder where build.ninja file is located.")
-    print("\t <compilerPath>: the fullpath of the compiler")
+    print("[Description]:")
+    print("  This tool imports Zephyr source code into Visual Studio Code in the context of a Zephyr build.")
+    print("[Pre-condition]:")
+    print("  A Zephyr build must be made before using this tool because some build-generated files are needed.")
+    print("[Support]:")
+    print("  ming.shao@intel.com")
+    print("[Usage]:")
+    print("  zephyr2vsc <srcDir> <bldDir> <compilerPath>")
+    print("  <srcDir>: the Zephyr source code folder to open in VS Code.")
+    print("  <bldDir>: the Zephyr build folder where build.ninja file is located.")
+    print("  <compilerPath>: the fullpath of the compiler")
     return
 
 
