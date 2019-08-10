@@ -82,7 +82,7 @@ def CreateDotVSCodeFolderInSrcDir(everything):
     return
 
 def GenerateCompilationDB(everything):
-    compDBFileFullpath = os.path.join(everything["bldDir"], "zephyr_compile_db.json") # compDB will be saved in the bldDir
+    compDBFileFullpath = os.path.abspath(os.path.join(everything["bldDir"], "zephyr_compile_db.json")) # compDB will be saved in the bldDir
     allRulesString = " ".join(everything["ninjaRules"])
     cmdString = r"ninja -C <BLD_DIR> -t compdb <RULES>"
     cmdString = cmdString.replace(r"<BLD_DIR>", everything["bldDir"])
@@ -91,7 +91,7 @@ def GenerateCompilationDB(everything):
 
     print("Zephyr compilation DB will be saved as:\n[%s]\n" % compDBFileFullpath)
     with open(compDBFileFullpath, "w") as f:
-        subprocess.run(cmdString, stdout=f)
+        subprocess.run(cmdString, stdout=f, shell=True)
 
     f = open(compDBFileFullpath, "r")
     fixedLines = []
@@ -153,8 +153,9 @@ def GetNinjaBuildFile(everything):
     return
 
 def LoadVSCJSONTemplates(everything):
-    everything["settings.json"] = os.path.abspath(os.path.join(os.curdir, r"settings.json"))
-    everything["c_cpp_properties.json"] = os.path.abspath(os.path.join(os.curdir, r"c_cpp_properties.json"))
+    scriptDir = os.path.dirname(os.path.realpath(__file__))
+    everything["settings.json"] = os.path.abspath(os.path.join(scriptDir, r"settings.json"))
+    everything["c_cpp_properties.json"] = os.path.abspath(os.path.join(scriptDir, r"c_cpp_properties.json"))
     print("VS Code configuration JSON templates loaded.\n")
     return
 
@@ -197,9 +198,9 @@ if __name__=="__main__":
     if(len(sys.argv)!= 4):
         Usage()
     else:
-        everything["srcDir"] = os.path.normpath(sys.argv[1]) # this is the folder to open in VS Code.
-        everything["bldDir"] = os.path.normpath(sys.argv[2]) # this is the folder where build.ninja file is located.
-        everything["compilerPath"] = os.path.normpath(sys.argv[3]) # this is the folder where build.ninja file is located.
+        everything["srcDir"] = os.path.abspath(os.path.normpath(sys.argv[1])) # this is the folder to open in VS Code.
+        everything["bldDir"] = os.path.abspath(os.path.normpath(sys.argv[2])) # this is the folder where build.ninja file is located.
+        everything["compilerPath"] = os.path.abspath(os.path.normpath(sys.argv[3])) # this is the folder where build.ninja file is located.
         CleanseArgs(everything)
         DoWork(everything)
         
