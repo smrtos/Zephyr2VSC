@@ -96,7 +96,12 @@ def GenerateCompilationDB(everything):
     f = open(compDBFileFullpath, "r")
     fixedLines = []
     for line in f.readlines():
-        fixedLines.append(line.replace("--imacros=", "-include")) # workaround https://github.com/Microsoft/vscode-cpptools/issues/2417
+        if("--imacros=" in line):
+            fixedLines.append(line.replace("--imacros=", "-include")) # Windows workaround https://github.com/Microsoft/vscode-cpptools/issues/2417
+        elif("-imacros" in line):
+            fixedLines.append(line.replace("-imacros", "-include")) # Linux workaround https://github.com/Microsoft/vscode-cpptools/issues/2417
+        else:
+            fixedLines.append(line) 
     f.close()
 
     f = open(compDBFileFullpath, "w")
