@@ -10,7 +10,12 @@
             "request": "launch",
             "program": "${file}",
             "console": "integratedTerminal",
-            "args": ["C:/D/Sources/Zephyr.west/zephyrproject/zephyr/", "C:/D/Sources/Zephyr.west/zephyrproject/zephyr.build/helloworld.ARM"]
+            "args": 
+            [
+                "C:/D/Sources/Zephyr.west/zephyrproject/zephyr/",
+                "C:/D/Sources/Zephyr.west/zephyrproject/zephyr.build/helloworld.ARM",
+                "c:/d/DevBins/gnuarmemb/bin/arm-none-eabi-gcc.exe"
+            ]
         }
     ]
 }

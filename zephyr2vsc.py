@@ -71,6 +71,17 @@ def GetExcludedCFilesRelativePath(everything):
     print("Exclude [%d] irrelevant C source files.\n" % len(everything["excludeCFiles"]))
     return
 
+def GetIncludedCFilesContainingFolder(everything):
+    relevantCFilesSet = set(everything["cFiles"]) #relative paths
+    relevantCFolder = []
+    for relevantCFile in relevantCFilesSet:
+        relevantCFolder.append(os.path.dirname(relevantCFile))
+
+    everything["relevantCFolder"] = list(set(relevantCFolder))
+    return
+    
+
+
 def CreateDotVSCodeFolderInSrcDir(everything):
     vscodeDir = os.path.join(everything["srcDir"], ".vscode")
     everything["vscodeDir"] = vscodeDir
@@ -127,11 +138,17 @@ def GenerateVSCConfigJSONs(everything):
     
     settingsDecoded["files.exclude"]["**/.github"] = True
     settingsDecoded["files.exclude"]["**/.known-issues"] = True
-    settingsDecoded["files.exclude"]["**/.*"] = True
     settingsDecoded["files.exclude"][".vscode"] = False
+
+    # Below line is pure evil.
+    # I was expecting it as a shortcut to exclude all the . started files or folders.
+    # But it turns out it will totally ruin the VS Code symbol parsing
+    # I leave this line here as a sign.
+    #settingsDecoded["files.exclude"]["**/.*"] = True
 
     cpropsDecoded["configurations"][0]["compileCommands"]= everything["compDBFileFullpath"]
     cpropsDecoded["configurations"][0]["compilerPath"]= everything["compilerPath"]
+    cpropsDecoded["configurations"][0]["browse"]["path"] += (everything["relevantCFolder"])
 
     CreateDotVSCodeFolderInSrcDir(everything)
     vscodeDir = everything["vscodeDir"]
@@ -178,6 +195,7 @@ def DoWork(everything):
     GetRelevantCFilesRelativePath(everything)
     GetAllCFilesRelativePath(everything)
     GetExcludedCFilesRelativePath(everything)
+    GetIncludedCFilesContainingFolder(everything)
 
     GenerateCompilationDB(everything)
     GenerateVSCConfigJSONs(everything)

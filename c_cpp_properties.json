@@ -9,7 +9,9 @@
             "compileCommands": "",
             "browse": 
             {
-                "limitSymbolsToIncludedHeaders": true
+                "limitSymbolsToIncludedHeaders": true,
+                "databaseFilename": "${workspaceFolder}/.vscode/browse.zephyr.db",
+                "path": []
             }
         }
     ],
