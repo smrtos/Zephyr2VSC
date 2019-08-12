@@ -203,12 +203,13 @@ def DoWork(everything):
     return    
 
 def Usage():
+    print(os.linesep)
+    print("zephyr2vsc ver 0.1")
+    print("By ming.shao@intel.com")
     print("[Description]:")
     print("  This tool imports Zephyr source code into Visual Studio Code in the context of a Zephyr build.")
     print("[Pre-condition]:")
     print("  A Zephyr build must be made before using this tool because some build-generated files are needed.")
-    print("[Support]:")
-    print("  ming.shao@intel.com")
     print("[Usage]:")
     print("  zephyr2vsc <srcDir> <bldDir> <compilerPath>")
     print("  <srcDir>: the Zephyr source code folder to open in VS Code.")
@@ -227,6 +228,8 @@ if __name__=="__main__":
     if(len(sys.argv)!= 4):
         Usage()
     else:
+        print("zephyr2vsc ver 0.1")
+        print("By ming.shao@intel.com")
         everything["srcDir"] = os.path.abspath(os.path.normpath(sys.argv[1])) # this is the folder to open in VS Code.
         everything["bldDir"] = os.path.abspath(os.path.normpath(sys.argv[2])) # this is the folder where build.ninja file is located.
         everything["compilerPath"] = os.path.abspath(os.path.normpath(sys.argv[3])) # this is the folder where build.ninja file is located.
