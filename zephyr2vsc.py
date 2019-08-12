@@ -133,9 +133,6 @@ def GenerateVSCConfigJSONs(everything):
     with open(cprops, "r") as f:
         cpropsDecoded = json.load(f) 
 
-    for excludedCFile in everything["excludeCFiles"]:
-        settingsDecoded["files.exclude"][excludedCFile] = True
-    
     settingsDecoded["files.exclude"]["**/.github"] = True
     settingsDecoded["files.exclude"]["**/.known-issues"] = True
     settingsDecoded["files.exclude"][".vscode"] = False
@@ -143,8 +140,12 @@ def GenerateVSCConfigJSONs(everything):
     # Below line is pure evil.
     # I was expecting it as a shortcut to exclude all the . started files or folders.
     # But it turns out it will totally ruin the VS Code symbol parsing
-    # I leave this line here as a sign.
-    #settingsDecoded["files.exclude"]["**/.*"] = True
+    # According to https://github.com/microsoft/vscode-cpptools/issues/4063,
+    # It seems "**/[.]*" can work.    
+    settingsDecoded["files.exclude"]["**/[.]*"] = True
+
+    for excludedCFile in everything["excludeCFiles"]:
+        settingsDecoded["files.exclude"][excludedCFile] = True
 
     cpropsDecoded["configurations"][0]["compileCommands"]= everything["compDBFileFullpath"]
     cpropsDecoded["configurations"][0]["compilerPath"]= everything["compilerPath"]
