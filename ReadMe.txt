@@ -13,3 +13,8 @@ Below VS Code bug prevents me from using a simple glob pattern to hide all hidde
 https://github.com/microsoft/vscode-cpptools/issues/4063
 
 
+TODO:
+I was considering add the excluded files to the "files.watcherExclude".
+But this settings requires VSCode to restart.
+And now there's no obvious performance issue at VSCode start.
+So I will not add it for now.
