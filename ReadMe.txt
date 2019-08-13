@@ -20,5 +20,5 @@ In future I may expand the scope of irrelevant file exclusion.
 But for .c file browsing, it suffices, I think.
 
 Known issues:
-Below VS Code bug prevents me from using a simple glob pattern to hide all hidden files/folders.
+Below VS Code bug is not fixed. Currently using a workaround.
 https://github.com/microsoft/vscode-cpptools/issues/4063
