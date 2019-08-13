@@ -234,7 +234,7 @@ if __name__=="__main__":
         print("By ming.shao@intel.com")
         everything["srcDir"] = os.path.abspath(os.path.normpath(sys.argv[1])) # this is the folder to open in VS Code.
         everything["bldDir"] = os.path.abspath(os.path.normpath(sys.argv[2])) # this is the folder where build.ninja file is located.
-        everything["compilerPath"] = os.path.abspath(os.path.normpath(sys.argv[3])) # this is the folder where build.ninja file is located.
+        everything["compilerPath"] = os.path.abspath(os.path.normpath(sys.argv[3])) # this is the fullpath of the compiler.
         CleanseArgs(everything)
         DoWork(everything)
         
