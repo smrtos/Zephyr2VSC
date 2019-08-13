@@ -149,7 +149,7 @@ def GenerateVSCConfigJSONs(everything):
 
     cpropsDecoded["configurations"][0]["compileCommands"]= everything["compDBFileFullpath"]
     cpropsDecoded["configurations"][0]["compilerPath"]= everything["compilerPath"]
-    cpropsDecoded["configurations"][0]["browse"]["path"] += (everything["relevantCFolder"])
+    cpropsDecoded["configurations"][0]["browse"]["path"].extend((everything["relevantCFolder"]))
 
     CreateDotVSCodeFolderInSrcDir(everything)
     vscodeDir = everything["vscodeDir"]
