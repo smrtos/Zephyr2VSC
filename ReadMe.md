@@ -51,7 +51,7 @@ But for .c file browsing, it suffices, I think.
 
 1. Download and extract the zip.
 2. Goto the extracted folder.
-3. Run "python zephyr2vsc.py" to see the usage info and run it. ![zephyr2vs.usage](C:\D\Sources\Zephyr.west\zephyrproject\Zephyr2VSCode\python\pics\zephyr2vs.usage.png)
+3. Run "python zephyr2vsc.py" to see the usage info and run it. ![zephyr2vs.usage](.\pics\zephyr2vs.usage.png)
 
 4. Open the zephyr source dir with VS Code. And wait for the database icon at the bottom right to disappear. 
 
@@ -61,11 +61,11 @@ But for .c file browsing, it suffices, I think.
 
    You can hover the mouse on it to see the progress. 
 
-    ![file parsing icon](C:\D\Sources\Zephyr.west\zephyrproject\Zephyr2VSCode\python\pics\file parsing icon.png)
+    ![file parsing icon](.\pics\file parsing icon.png)
 
 ## A sample run
 
-![zephyr2vs.run](C:\D\Sources\Zephyr.west\zephyrproject\Zephyr2VSCode\python\pics\zephyr2vs.run.png)
+![zephyr2vs.run](.\pics\zephyr2vs.run.png)
 
 ## Known issues
 
