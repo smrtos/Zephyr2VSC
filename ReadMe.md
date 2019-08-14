@@ -61,7 +61,7 @@ But for .c file browsing, it suffices, I think.
 
    You can hover the mouse on it to see the progress. 
 
-    ![file parsing icon](https://git-gar-1.devtools.intel.com/git/api/2/repos/mshao-zephyr2vscode/download/pics/file%20parsing%20icon.png?refspec=refs%2Fheads%2Fmaster&access_token=eyJraWQiOiIxIiwiYWxnIjoiUlMyNTYifQ.eyJzdWIiOiJtc2hhbyIsImF1ZCI6WyJzb2FwNjAiLCJjdGYiLCJzdm4iLCJnZXJyaXQiXSwibmJmIjoxNTY1NjYwMzIxLCJhbXIiOlsidXJuOmN0ZjphbXI6anNlc3Npb24iXSwiaXNzIjoidXJuOmN0Zjppc3M6dGYtaWRwIiwiZXhwIjoxNTY1NjYzOTIxLCJpYXQiOjE1NjU2NjAzMjEsImp0aSI6Ijg0YzM2YTcyLWU0YzgtNGE2Yy04NjE3LWE4NDZhODYyMzAyNyJ9.Ze-d5ua1Dx7UPD8VTQ7k_AAB0I0-z723Z5KmI9e8LKzpAk_ZCtwdffgO3ueJF-yLCclSbaqEgbAE-F66mmlUfnYVVVe92sxhRzwwi5M9Tmlafqo5GK7K-Y6XLkhTmHIEXze3DDWT_oe5yqWXUYkAYCTkfIpr_h9U5O6M9GmpLRE)
+    ![file parsing icon](https://tf-amr-1.devtools.intel.com/ctf/code/projects.mshao/git/scm.zephyr2vscode/file/pics/file%20parsing%20icon.png)
 
 ## A sample run
 
@@ -74,5 +74,5 @@ But for .c file browsing, it suffices, I think.
    [https://github.com/microsoft/vscode-cpptools/issues/4063](https://github.com/microsoft/vscode-cpptools/issues/4063)
 
 2. Do not change the driver letters with `subst` command on Windows after a Zephyr build is made.
- 
+
    Because the .ninja files uses absolute path and the new driver letter will break the relative path handling.
