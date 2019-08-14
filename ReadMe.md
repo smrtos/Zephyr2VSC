@@ -69,8 +69,10 @@ But for .c file browsing, it suffices, I think.
 
 ## Known issues
 
-Below VS Code bug is not fixed. Currently using a workaround.
+1. Below VS Code bug is not fixed. Currently using a workaround.
 
-[https://github.com/microsoft/vscode-cpptools/issues/4063](https://soco.intel.com/external-link.jspa?url=https%3A%2F%2Fgithub.com%2Fmicrosoft%2Fvscode-cpptools%2Fissues%2F4063)
+   [https://github.com/microsoft/vscode-cpptools/issues/4063](https://github.com/microsoft/vscode-cpptools/issues/4063)
 
+2. Do not change the driver letters with `subst` command on Windows after a Zephyr build is made.
  
+   Because the .ninja files uses absolute path and the new driver letter will break the relative path handling.
