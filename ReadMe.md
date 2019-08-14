@@ -51,7 +51,7 @@ But for .c file browsing, it suffices, I think.
 
 3. Run "python zephyr2vsc.py" to see the usage info and run it. 
 
-   ![zephyr2vs.usage](https://git-gar-1.devtools.intel.com/git/api/2/repos/mshao-zephyr2vscode/download/pics/zephyr2vs.usage.png?refspec=refs%2Fheads%2Fmaster&access_token=eyJraWQiOiIxIiwiYWxnIjoiUlMyNTYifQ.eyJzdWIiOiJtc2hhbyIsImF1ZCI6WyJzb2FwNjAiLCJjdGYiLCJzdm4iLCJnZXJyaXQiXSwibmJmIjoxNTY1NjYwNDIyLCJhbXIiOlsidXJuOmN0ZjphbXI6anNlc3Npb24iXSwiaXNzIjoidXJuOmN0Zjppc3M6dGYtaWRwIiwiZXhwIjoxNTY1NjY0MDIyLCJpYXQiOjE1NjU2NjA0MjIsImp0aSI6IjgzMjQyMDEwLTgxZGUtNGQ2ZS1iZjllLTIxYzdiZDE0MDBkZCJ9.GtJ_SViTG0BqO_C9tPkR9_pBbc8xMqEkv9tT8Y_G7kmbMOrwxShvG94yM2K8Cb7suPpR4sTQGWIlnZPGWLJ6pNHT1JXAasoi6OpHHjLPAAM2HbqnRX9ciRIoxhIbltTx7cwRoWQ8Z8skUz6gGckt_I5clKwoBY2ZTG2ZpZL9zEA)
+   ![zephyr2vs.usage](https://soco.intel.com/servlet/JiveServlet/showImage/102-2645171-17-1218158/zephyr2vs.usage.png)
 
 4. Open the zephyr source dir with VS Code. And wait for the database icon at the bottom right to disappear. 
 
@@ -61,11 +61,11 @@ But for .c file browsing, it suffices, I think.
 
    You can hover the mouse on it to see the progress. 
 
-    ![file parsing icon](https://tf-amr-1.devtools.intel.com/ctf/code/projects.mshao/git/scm.zephyr2vscode/file/pics/file%20parsing%20icon.png)
+    ![file parsing icon](https://soco.intel.com/servlet/JiveServlet/showImage/102-2645171-17-1218163/file+parsing+icon.png)
 
 ## A sample run
 
-![zephyr2vs.run](https://git-gar-1.devtools.intel.com/git/api/2/repos/mshao-zephyr2vscode/download/pics/zephyr2vs.run.png?refspec=refs%2Fheads%2Fmaster&access_token=eyJraWQiOiIxIiwiYWxnIjoiUlMyNTYifQ.eyJzdWIiOiJtc2hhbyIsImF1ZCI6WyJzb2FwNjAiLCJjdGYiLCJzdm4iLCJnZXJyaXQiXSwibmJmIjoxNTY1NjYwNDIyLCJhbXIiOlsidXJuOmN0ZjphbXI6anNlc3Npb24iXSwiaXNzIjoidXJuOmN0Zjppc3M6dGYtaWRwIiwiZXhwIjoxNTY1NjY0MDIyLCJpYXQiOjE1NjU2NjA0MjIsImp0aSI6Ijk1ZDFjNDc4LWZiOWYtNDRlOS1iNjNlLTkwNjgwYmQ0YWQ0NyJ9.TRIizKI1CdwvV_dnwPmgB2nD4sydVcTpZksvBXjp8L1818uMhEHZCQsrH1598cgGQl1Xr5xyEURBWYQMSXvkH2xRN656dOg1O2mOGTBoyn3E8nvUD3BB3qLRByFjD1I2Jsm6MsNW5Cuyz_CZOTK70zllpvR9sBJYbzaUMdw5ILY)
+![zephyr2vs.run](https://soco.intel.com/servlet/JiveServlet/showImage/102-2645171-17-1218159/zephyr2vs.run.png)
 
 ## Known issues
 
