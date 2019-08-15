@@ -191,7 +191,7 @@ def DeriveOtheConfigs(everything):
 
 
 def DoWork(everything):
-    print("Start generating VSCode workspace for\n[%s]\n" % everything["srcDir"])
+    print("Start generating VSCode workspace for:\n[%s]\n" % everything["srcDir"])
     DeriveOtheConfigs(everything)    
     GetNinjaRules(everything)
     GetRelevantCFilesRelativePath(everything)
@@ -201,7 +201,7 @@ def DoWork(everything):
 
     GenerateCompilationDB(everything)
     GenerateVSCConfigJSONs(everything)
-    print("Finished generating VSCode workspace for\n[%s]\n" % everything["srcDir"])
+    print("Finished generating VSCode workspace for:\n[%s]\n" % everything["srcDir"])
     return    
 
 def Usage():
