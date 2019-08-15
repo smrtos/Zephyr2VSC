@@ -20,5 +20,7 @@ In future I may expand the scope of irrelevant file exclusion.
 But for .c file browsing, it suffices, I think.
 
 Known issues:
-Below VS Code bug is not fixed. Currently using a workaround.
-https://github.com/microsoft/vscode-cpptools/issues/4063
+1. Below VS Code bug is not fixed. Currently using a workaround.
+   https://github.com/microsoft/vscode-cpptools/issues/4063
+2. Do not change the driver letters with subst command on Windows after a Zephyr build is made.
+   Because the .ninja files uses absolute path and the new driver letter will break the relative path handling.
