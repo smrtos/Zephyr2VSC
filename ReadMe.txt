@@ -23,7 +23,6 @@ Known issues:
 1. Below VS Code bug is not fixed. Currently using a workaround.
    https://github.com/microsoft/vscode-cpptools/issues/4063
 2. Due to below VS Code C/C++ extension bug, some symbols from excluded files may still be listed when jumping to definitions.
-   Currently work around it by removing the "browse.path" entry from c_cpp_properties.json.
    https://github.com/microsoft/vscode-cpptools/issues/4095
 3. Do not change the driver letters with subst command on Windows after a Zephyr build is made.
    Because the .ninja files uses absolute path and the new driver letter will break the relative path handling.
