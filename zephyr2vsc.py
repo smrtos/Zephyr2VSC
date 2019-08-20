@@ -150,8 +150,9 @@ def GenerateVSCConfigJSONs(everything):
 
     cpropsDecoded["configurations"][0]["compileCommands"]= everything["compDBFileFullpath"]
     cpropsDecoded["configurations"][0]["compilerPath"]= everything["compilerPath"]
-    #Below line is commented out due to https://github.com/microsoft/vscode-cpptools/issues/4095
-    #cpropsDecoded["configurations"][0]["browse"]["path"].extend((everything["relevantCFolder"]))
+    #Below line is related to to https://github.com/microsoft/vscode-cpptools/issues/4095
+    #VS Code says they will fix it but yet to release. We need to wait..
+    cpropsDecoded["configurations"][0]["browse"]["path"].extend((everything["relevantCFolder"]))
 
     CreateDotVSCodeFolderInSrcDir(everything)
     vscodeDir = everything["vscodeDir"]
