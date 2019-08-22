@@ -73,7 +73,7 @@ But for .c file browsing, it suffices, I think.
 
    [https://github.com/microsoft/vscode-cpptools/issues/4063](https://github.com/microsoft/vscode-cpptools/issues/4063)
 
-2. Due to below VS Code C/C++ extension bug, some symbols from excluded files may still be listed when jumping to definitions.
+2. Below VS Code C/C++ extension bug is not fully fixed. Currently work around it. Please use VS Code c_cpp_extension > 0.25.0.
 
    <https://github.com/microsoft/vscode-cpptools/issues/4095>
    
