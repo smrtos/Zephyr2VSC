@@ -215,10 +215,10 @@ def Usage():
     print("[Pre-condition]:")
     print("  A Zephyr build must be made before using this tool because some build-generated files are needed.")
     print("[Usage]:")
-    print("  zephyr2vsc <srcDir> <bldDir> <compilerPath>")
+    print("  zephyr2vsc <compilerPath> <srcDir> <bldDir>")
+    print("  <compilerPath>: the fullpath of the compiler")
     print("  <srcDir>: the Zephyr source code folder to open in VS Code.")
     print("  <bldDir>: the Zephyr build folder where build.ninja file is located.")
-    print("  <compilerPath>: the fullpath of the compiler")
     return
 
 
@@ -234,9 +234,9 @@ if __name__=="__main__":
     else:
         print("zephyr2vsc ver 0.1")
         print("By ming.shao@intel.com")
-        everything["srcDir"] = os.path.abspath(os.path.normpath(sys.argv[1])) # this is the folder to open in VS Code.
-        everything["bldDir"] = os.path.abspath(os.path.normpath(sys.argv[2])) # this is the folder where build.ninja file is located.
-        everything["compilerPath"] = os.path.abspath(os.path.normpath(sys.argv[3])) # this is the fullpath of the compiler.
+        everything["compilerPath"] = os.path.abspath(os.path.normpath(sys.argv[1])) # this is the fullpath of the compiler.
+        everything["srcDir"] = os.path.abspath(os.path.normpath(sys.argv[2])) # this is the folder to open in VS Code.
+        everything["bldDir"] = os.path.abspath(os.path.normpath(sys.argv[3])) # this is the folder where build.ninja file is located.
         CleanseArgs(everything)
         DoWork(everything)
         
