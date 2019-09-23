@@ -135,7 +135,7 @@ def GenerateVSCConfigJSONs(everything):
 
     settingsDecoded["files.exclude"]["**/.github"] = True
     settingsDecoded["files.exclude"]["**/.known-issues"] = True
-    settingsDecoded["files.exclude"][".vscode"] = False
+    #settingsDecoded["files.exclude"][".vscode"] = False
 
     # I was expecting "**/.*" can be used as a shortcut to exclude all the . started files or folders.
     # Ref: https://code.visualstudio.com/docs/editor/codebasics#_advanced-search-options
@@ -143,7 +143,7 @@ def GenerateVSCConfigJSONs(everything):
     # But it turns out it will totally ruin the VS Code symbol parsing
     # According to https://github.com/microsoft/vscode-cpptools/issues/4063,
     # It seems "**/[.]*" can work around this issue.
-    settingsDecoded["files.exclude"]["**/[.]*"] = True
+    #settingsDecoded["files.exclude"]["**/[.]*"] = True
 
     for excludedCFile in everything["excludeCFiles"]:
         settingsDecoded["files.exclude"][excludedCFile.replace("\\","/")] = True
