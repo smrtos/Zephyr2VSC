@@ -51,7 +51,7 @@ But for .c file browsing, it suffices, I think.
 
 3. Run "python zephyr2vsc.py" to see the usage info and run it. 
 
-   ![zephyr2vs.usage](https://soco.intel.com/servlet/JiveServlet/showImage/102-2645171-17-1218158/zephyr2vs.usage.png)
+   ![zephyr2vs.usage](https://raw.githubusercontent.com/smwikipedia/zephyr2vsc/master/pics/zephyr2vs.usage.png)
 
 4. Open the zephyr source dir with VS Code. And wait for the database icon at the bottom right to disappear. 
 
@@ -61,11 +61,11 @@ But for .c file browsing, it suffices, I think.
 
    You can hover the mouse on it to see the progress. 
 
-    ![file parsing icon](https://soco.intel.com/servlet/JiveServlet/showImage/102-2645171-17-1218163/file+parsing+icon.png)
+    ![file parsing icon](https://raw.githubusercontent.com/smwikipedia/zephyr2vsc/master/pics/file%20parsing%20icon.png)
 
 ## A sample run
 
-![zephyr2vs.run](https://soco.intel.com/servlet/JiveServlet/showImage/102-2645171-17-1218159/zephyr2vs.run.png)
+![zephyr2vs.run](https://raw.githubusercontent.com/smwikipedia/zephyr2vsc/master/pics/zephyr2vs.run.png)
 
 ## Known issues
 
