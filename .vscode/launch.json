@@ -12,9 +12,9 @@
             "console": "integratedTerminal",
             "args": 
             [
-                "C:/D/Sources/Zephyr.west/zephyrproject/zephyr/",
-                "C:/D/Sources/Zephyr.west/zephyrproject/zephyr.build/helloworld.ARM",
-                "c:/d/DevBins/gnuarmemb/bin/arm-none-eabi-gcc.exe"
+                "C:/D/DevBins/ARM/gcc-arm-none-eabi-9-2019-q4-major-win32-profile-RM/bin/arm-none-eabi-gcc.exe",
+                "C:/D/zephyr/zephyr.west2/zephyrproject/zephyr",
+                "C:/D/zephyr/zephyr.west2/zephyrproject/build3"
             ]
         }
     ]

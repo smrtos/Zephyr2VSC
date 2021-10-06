@@ -1,3 +1,4 @@
+# coding=UTF-8
 import sys
 import os.path
 import re
@@ -169,7 +170,7 @@ def GenerateVSCConfigJSONs(everything):
     return
 
 def GetNinjaRulesFile(everything):
-    everything["ninjaRulesFile"]= os.path.join(everything["bldDir"], "rules.ninja")
+    everything["ninjaRulesFile"]= os.path.join(everything["bldDir"], "CMakeFiles", "rules.ninja")
     print("Ninja rules file found:\n[%s]\n" % everything["ninjaRulesFile"])
     return
 
@@ -194,7 +195,8 @@ def DeriveOtheConfigs(everything):
 
 def DoWork(everything):
     print("Start generating VSCode workspace for:\n[%s]\n" % everything["srcDir"])
-    DeriveOtheConfigs(everything)    
+    DeriveOtheConfigs(everything) 
+    print("step 1")
     GetNinjaRules(everything)
     GetRelevantCFilesRelativePath(everything)
     GetAllCFilesRelativePath(everything)
@@ -208,7 +210,7 @@ def DoWork(everything):
 
 def Usage():
     print(os.linesep)
-    print("zephyr2vsc ver 0.1")
+    print("zephyr2vsc ver 0.11")
     print("By ming.shao@intel.com")
     print("[Description]:")
     print("  This tool imports Zephyr source code into Visual Studio Code in the context of a Zephyr build.")
