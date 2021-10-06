@@ -51,7 +51,7 @@ But for .c file browsing, it suffices, I think.
 
 3. Run "python zephyr2vsc.py" to see the usage info and run it. 
 
-   ![zephyr2vs.usage](https://raw.githubusercontent.com/smwikipedia/zephyr2vsc/master/pics/zephyr2vs.usage.png)
+   ![zephyr2vs.usage](https://raw.githubusercontent.com/smrtos/Zephyr2VSC/master/pics/zephyr2vs.usage.png)
 
 4. Open the zephyr source dir with VS Code. And wait for the database icon at the bottom right to disappear. 
 
