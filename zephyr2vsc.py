@@ -152,7 +152,7 @@ def GenerateVSCConfigJSONs(everything):
     cpropsDecoded["configurations"][0]["compileCommands"]= everything["compDBFileFullpath"].replace("\\", "/")
     cpropsDecoded["configurations"][0]["compilerPath"]= everything["compilerPath"].replace("\\", "/")
     #Below line is related to to https://github.com/microsoft/vscode-cpptools/issues/4095
-    #VS Code says they will fix it but yet to release. We need to wait..
+    #VS Code c_cpp_extension has fixed it. Please use c_cpp_extension > 0.25.1
     cpropsDecoded["configurations"][0]["browse"]["path"].extend([f.replace("\\","/") for f in everything["relevantCFolder"]])
 
     CreateDotVSCodeFolderInSrcDir(everything)

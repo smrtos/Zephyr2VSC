@@ -35,13 +35,15 @@ But for .c file browsing, it suffices, I think.
 
 1. Install VS Code
 
-   Windows: [https://code.visualstudio.com/docs/?dv=win](https://soco.intel.com/external-link.jspa?url=https%3A%2F%2Fcode.visualstudio.com%2Fdocs%2F%3Fdv%3Dwin)
+   Windows: [https://code.visualstudio.com/docs/?dv=win](https://code.visualstudio.com/docs/?dv=win)   
 
-   Linux:  [https://code.visualstudio.com/docs/?dv=linux64_deb](https://soco.intel.com/external-link.jspa?url=https%3A%2F%2Fcode.visualstudio.com%2Fdocs%2F%3Fdv%3Dlinux64_deb)  (Ubuntu like)
+   Linux:  [https://code.visualstudio.com/docs/?dv=linux64_deb](https://code.visualstudio.com/docs/?dv=linux64_deb) (Ubuntu like)
 
 2. Install VSCode C/C++ Extension:
 
-   [https://code.visualstudio.com/docs/languages/cpp](https://soco.intel.com/external-link.jspa?url=https%3A%2F%2Fcode.visualstudio.com%2Fdocs%2Flanguages%2Fcpp) 
+   [https://code.visualstudio.com/docs/languages/cpp](https://code.visualstudio.com/docs/languages/cpp)
+3. Install Python 3:
+   [https://www.python.org/downloads/release/python-373/](https://www.python.org/downloads/release/python-373/)
 
 ## Usage
 
@@ -73,7 +75,7 @@ But for .c file browsing, it suffices, I think.
 
    [https://github.com/microsoft/vscode-cpptools/issues/4063](https://github.com/microsoft/vscode-cpptools/issues/4063)
 
-2. Below VS Code C/C++ extension bug is not fully fixed. Currently work around it. Please use VS Code c_cpp_extension > 0.25.0.
+2. Below VS Code C/C++ extension bug used to be an issue but has been fixed. Please use VS Code c_cpp_extension >= 0.25.1.
 
    <https://github.com/microsoft/vscode-cpptools/issues/4095>
    
