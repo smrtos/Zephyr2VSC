@@ -1,0 +1,27 @@
+[project]
+name = "zephyr2vsc"
+description = "A tool to import Zephyr code into Visual Studio Code in the context of a Zephyr application"
+version = "0.0.0"
+authors = [
+    {name = "Ming Shao", email = "ming.shao@intel.com"},
+    {name = "J.P. Hutchins", email = "jphutchins@gmail.com" },
+]
+readme = "README.md"
+requires-python = ">=3.8"
+
+[project.optional-dependencies]
+dev = [
+    "black >= 22.3.0",
+    "flake8 >= 4.0.1",
+    "isort >= 5.10.1",
+    "mypy >= 0.961",
+    "mypy-extensions >= 0.4.3",
+    "pytest >= 7.1.2",
+    "pytest-cov >= 3.0.0",
+]
+
+[build-system]
+build-backend = "setuptools.build_meta"
+requires = [
+    "setuptools >= 35.0.2",
+]
