@@ -190,12 +190,6 @@ def load_vscode_json_templates(everything):
     print("VS Code configuration JSON templates loaded.\n")
     return
 
-def derive_other_configs(everything):
-    get_ninja_rulesFile(everything)
-    get_ninja_build_file(everything)
-    load_vscode_json_templates(everything)
-    return 
-
 def usage():
     print(os.linesep)
     print("zephyr2vsc ver 0.11")
@@ -225,7 +219,9 @@ if __name__=="__main__":
         build_dir = os.path.abspath(os.path.normpath(sys.argv[3])) # this is the folder where build.ninja file is located.
 
         print(f"Start generating VSCode workspace for:\n[{src_dir}]\n")
-        derive_other_configs(everything) 
+        get_ninja_rulesFile(everything)
+        get_ninja_build_file(everything)
+        load_vscode_json_templates(everything)
         print("step 1")
         get_ninja_rules(everything)
         get_relevant_c_files_relative_path(everything)
