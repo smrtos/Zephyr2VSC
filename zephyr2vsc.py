@@ -219,11 +219,12 @@ if __name__=="__main__":
     else:
         print("zephyr2vsc ver 0.1")
         print("By ming.shao@intel.com")
-        everything["compilerPath"] = os.path.abspath(os.path.normpath(sys.argv[1])) # this is the fullpath of the compiler.
-        everything["srcDir"] = os.path.abspath(os.path.normpath(sys.argv[2])) # this is the folder to open in VS Code.
-        everything["bldDir"] = os.path.abspath(os.path.normpath(sys.argv[3])) # this is the folder where build.ninja file is located.
 
-        print("Start generating VSCode workspace for:\n[%s]\n" % everything["srcDir"])
+        compiler_path = os.path.abspath(os.path.normpath(sys.argv[1])) # this is the fullpath of the compiler.
+        src_dir = os.path.abspath(os.path.normpath(sys.argv[2])) # this is the folder to open in VS Code.
+        build_dir = os.path.abspath(os.path.normpath(sys.argv[3])) # this is the folder where build.ninja file is located.
+
+        print(f"Start generating VSCode workspace for:\n[{src_dir}]\n")
         derive_other_configs(everything) 
         print("step 1")
         get_ninja_rules(everything)
