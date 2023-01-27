@@ -1,7 +1,7 @@
 [project]
 name = "zephyr2vsc"
 description = "A tool to import Zephyr code into Visual Studio Code in the context of a Zephyr application"
-version = "0.0.0"
+version = "0.0.2"
 authors = [
     {name = "Ming Shao", email = "ming.shao@intel.com"},
     {name = "J.P. Hutchins", email = "jphutchins@gmail.com" },

@@ -6,141 +6,125 @@ Copyright (c) 2019-2023 Ming Shao
 """
 
 import sys
-import os.path
+import os
 import re
 import json
 import subprocess
+from typing import Set
 
-def get_ninja_rules(everything):
-    rulesFile = everything["ninjaRulesFile"]
-    rules = []
+SETTINGS_JSON_TEMPLATE = {
+    "files.exclude": {
+        "**/.git": True,
+        "**/.svn": True,
+        "**/.hg": True,
+        "**/CVS": True,
+        "**/.DS_Store": True,
+        "**/test*":True
+    },
+    "C_Cpp.exclusionPolicy": "checkFilesAndFolders",
+	"C_Cpp.intelliSenseEngine": "Default",
+	"cmake.configureOnOpen": False
+}
 
-    with open(rulesFile, "r") as f:
-        lines = f.readlines()
+C_CPP_PROPERTIES_JSON_TEMPLATE = {
+    "configurations": [
+        {
+            "name": "Zephyr",
+            "compilerPath": "",
+            "cStandard": "c99",
+            "cppStandard": "c++11",
+            "intelliSenseMode": "gcc-x64",
+            "compileCommands": "",
+            "browse": 
+            {
+                "limitSymbolsToIncludedHeaders": True,
+                "databaseFilename": "${workspaceFolder}/.vscode/browse.zephyr.db",
+                "path": []
+            }
+        }
+    ],
+    "version": 4
+}
+
+def get_ninja_rules(build_dir: str) -> Set[str]:
+    ninja_rules_file = os.path.join(build_dir, "CMakeFiles", "rules.ninja")
     
-    for line in lines:
-        m = re.match(r"^rule\s([^\n]*)$", line)
-        if(not m is None):
-            rules.append(m.group(1))
+    with open(ninja_rules_file, "r") as f:
+        print(f"Ninja rules file found:\n[{ninja_rules_file}]\n")
 
-    everything["ninjaRules"] = list(set(rules))
-    print("Found [%d] ninja build rules in:\n[%s]\n" % (len(everything["ninjaRules"]), everything["ninjaRulesFile"]))
-    return
+        rules = set()
+        for line in f.readlines():
+            if m := re.match(r"^rule\s([^\n]*)$", line):
+                rules.add(m.group(1))
+       
+    print(f"Found [{len(rules)}] ninja build rules in:\n[{ninja_rules_file}]\n")
+    return rules
 
-def get_all_c_files_relative_path(everything):
-    srcDir = everything["srcDir"]
-    allCFiles = []
-    for _dir, _subdirs, _files in os.walk(srcDir):
-        if(len(_files)==0):
-            continue
-        for _file in _files:
-            if(_file[-2:] == ".c"):
-                cFile = os.path.join(_dir, _file)
-                allCFiles.append(os.path.relpath(cFile,srcDir)) # get the relative path to the srcDir
+def get_all_c_files_relative_path(src_dir: str) -> Set[str]:
+    all_c_files = set()
+    for dir, _, files in os.walk(src_dir):
+        for file in files:
+            if file.endswith(".c"):
+                # get the relative path to the src_dir
+                c_file = os.path.join(dir, file)
+                all_c_files.add(os.path.relpath(c_file, src_dir))
     
-    everything["allCFiles"] = list(set(allCFiles))
-#    for cFile in allCFiles:
-#        print(cFile)
-    print("Found [%d] C source files in source dir:\n[%s]\n" % (len(everything["allCFiles"]), everything["srcDir"]))
-    return
+    print(f"Found [{len(all_c_files)}] C source files in source dir:\n[{src_dir}]\n")
+    return all_c_files
 
-def get_relevant_c_files_relative_path(everything):
-    buildFile = everything["ninjaBldFile"]
-    srcDir = everything["srcDir"]
-    bldDir = everything["bldDir"] 
-    cFiles = []
-
-    with open(buildFile, "r") as f:
-        lines = f.readlines()
+def get_relevant_c_files_relative_path(src_dir: str, build_dir: str) -> Set[str]:
+    ninja_build_file = os.path.join(build_dir, "build.ninja")
     
-    for line in lines:
-        m = re.match(r"^build\s.*\s([^\s|]+\.c)\s", line)
-        if(not m is None):
-            cFile = os.path.normpath(m.group(1).replace("$", ""))
-            if(not os.path.isabs(cFile)):
-                #This must be a build generated file
-                cFiles.append(os.path.normpath(os.path.join(bldDir, cFile)))
-            else:
-                cFiles.append(os.path.relpath(cFile, srcDir))# get the relative path to the srcDir
-    everything["cFiles"] = list(set(cFiles))
-#    for cFile in cFiles:
-#        print(cFile)
-    print("Found [%d] relevant C source files.\n" % len(everything["cFiles"]))
-    return
+    with open(ninja_build_file, "r") as f:
+        print(f"Ninja build file found:\n[{ninja_build_file}]\n")
 
-def get_excluded_c_files_relative_path(everything):
-    relevantCFilesSet = set(everything["cFiles"])
-    allCFilesSet = set(everything["allCFiles"])
-    excludeCFiles = allCFilesSet - relevantCFilesSet
-    everything["excludeCFiles"] = list(set(excludeCFiles))
-    print("Exclude [%d] irrelevant C source files.\n" % len(everything["excludeCFiles"]))
-    return
+        c_files = set()
+        for line in f.readlines():
+            if m := re.match(r"^build\s.*\s([^\s|]+\.c)\s", line):
+                c_file = os.path.normpath(m.group(1).replace("$", ""))
+                if not os.path.isabs(c_file):  
+                    # this must be a build generated file
+                    c_files.add(os.path.normpath(os.path.join(build_dir, c_file)))
+                else:
+                    # get the relative path to the src_dir
+                    c_files.add(os.path.relpath(c_files, src_dir))
 
-def get_included_c_files_containing_folder(everything):
-    relevantCFilesSet = set(everything["cFiles"]) #relative paths
-    relevantCFolder = []
-    for relevantCFile in relevantCFilesSet:
-        relevantCFolder.append(os.path.dirname(relevantCFile))
+    print(f"Found [{len(c_files)}] relevant C source files.\n")
+    return c_files
 
-    everything["relevantCFolder"] = list(set(relevantCFolder))
-    return
+def generate_compilation_db(build_dir: str, ninja_rules: Set[str]) -> str:
+    # compDB will be saved in the build dir
+    db_full_path = os.path.abspath(os.path.join(build_dir, "zephyr_compile_db.json"))
+    print(f"Zephyr compilation DB will be saved as:\n[{db_full_path}]\n")
     
+    rules = " ".join(ninja_rules)
+    ninja_build_command = rf"ninja -C {build_dir} -t compdb {rules}"
+    out = subprocess.run(ninja_build_command, stdout=subprocess.PIPE, shell=True).stdout.decode()
 
+    # workaround for https://github.com/Microsoft/vscode-cpptools/issues/2417
+    replace = {
+        re.escape("--imacros="): "-include",
+        re.escape("-imacros"): "-include",
+    }
+    pattern = re.compile("|".join(replace.keys()))
+    fixed = map(lambda l: pattern.sub(lambda m: replace[re.escape(m.group(0))], l), out)
+    
+    with open(db_full_path, "w") as f:
+        f.writelines(fixed)
 
-def create_dot_vscode_folder_in_src_directory(everything):
-    vscodeDir = os.path.join(everything["srcDir"], ".vscode")
-    everything["vscodeDir"] = vscodeDir
-    if(os.path.exists(vscodeDir)):
-        print(".vscode folder already exists source dir:\n[%s]\n" % everything["srcDir"])
-        return
-    os.mkdir(vscodeDir)
-    print(".vscode folder generated for source dir:\n[%s]\n" % everything["srcDir"])
-    return
+    print(f"Zephyr compilation DB is saved as:\n[{db_full_path}]\n")
+    return db_full_path
 
-def generate_compilation_db(everything):
-    compDBFileFullpath = os.path.abspath(os.path.join(everything["bldDir"], "zephyr_compile_db.json")) # compDB will be saved in the bldDir
-    allRulesString = " ".join(everything["ninjaRules"])
-    cmdString = r"ninja -C <BLD_DIR> -t compdb <RULES>"
-    cmdString = cmdString.replace(r"<BLD_DIR>", everything["bldDir"])
-    #cmdString = cmdString.replace(r"<COMPDB_OUTPUT>", compDBFileFullpath)
-    cmdString = cmdString.replace(r"<RULES>", allRulesString)
-
-    print("Zephyr compilation DB will be saved as:\n[%s]\n" % compDBFileFullpath)
-    with open(compDBFileFullpath, "w") as f:
-        subprocess.run(cmdString, stdout=f, shell=True)
-
-    f = open(compDBFileFullpath, "r")
-    fixedLines = []
-    for line in f.readlines():
-        if("--imacros=" in line):
-            fixedLines.append(line.replace("--imacros=", "-include")) # Windows workaround https://github.com/Microsoft/vscode-cpptools/issues/2417
-        elif("-imacros" in line):
-            fixedLines.append(line.replace("-imacros", "-include")) # Linux workaround https://github.com/Microsoft/vscode-cpptools/issues/2417
-        else:
-            fixedLines.append(line) 
-    f.close()
-
-    f = open(compDBFileFullpath, "w")
-    f.writelines(fixedLines)
-    f.close()   
-
-    everything["compDBFileFullpath"] = compDBFileFullpath
-    print("Zephyr compilation DB is saved as:\n[%s]\n" % compDBFileFullpath)
-    return
-
-def generate_vscode_config_jsons(everything):
-    settings = everything["settings.json"]
-    cprops = everything["c_cpp_properties.json"]
-    settingsDecoded= None
-    cpropsDecoded = None
-    with open(settings, "r") as f:
-        settingsDecoded = json.load(f)        
-    with open(cprops, "r") as f:
-        cpropsDecoded = json.load(f) 
-
-    settingsDecoded["files.exclude"]["**/.github"] = True
-    settingsDecoded["files.exclude"]["**/.known-issues"] = True
-    #settingsDecoded["files.exclude"][".vscode"] = False
+def generate_vscode_config_jsons(
+    unused_c_files: Set[str],
+    used_c_files: Set[str],
+    compiler_path: str,
+    db_full_path: str,
+    src_dir: str,
+):
+    settings = SETTINGS_JSON_TEMPLATE
+    settings["files.exclude"]["**/.github"] = True
+    settings["files.exclude"]["**/.known-issues"] = True
 
     # I was expecting "**/.*" can be used as a shortcut to exclude all the . started files or folders.
     # Ref: https://code.visualstudio.com/docs/editor/codebasics#_advanced-search-options
@@ -150,45 +134,36 @@ def generate_vscode_config_jsons(everything):
     # It seems "**/[.]*" can work around this issue.
     #settingsDecoded["files.exclude"]["**/[.]*"] = True
 
-    for excludedCFile in everything["excludeCFiles"]:
-        settingsDecoded["files.exclude"][excludedCFile.replace("\\","/")] = True
+    for unused_c_file in unused_c_files:
+        settings["files.exclude"][unused_c_file.replace("\\","/")] = True
+    
+    c_properties = C_CPP_PROPERTIES_JSON_TEMPLATE
 
-    cpropsDecoded["configurations"][0]["compileCommands"]= everything["compDBFileFullpath"].replace("\\", "/")
-    cpropsDecoded["configurations"][0]["compilerPath"]= everything["compilerPath"].replace("\\", "/")
-    #Below line is related to to https://github.com/microsoft/vscode-cpptools/issues/4095
-    #VS Code c_cpp_extension has fixed it. Please use c_cpp_extension > 0.25.1
-    cpropsDecoded["configurations"][0]["browse"]["path"].extend([f.replace("\\","/") for f in everything["relevantCFolder"]])
+    c_properties["configurations"][0]["compileCommands"] = db_full_path.replace("\\", "/")
+    c_properties["configurations"][0]["compilerPath"] = compiler_path.replace("\\", "/")
+    
+    # Below line is related to to https://github.com/microsoft/vscode-cpptools/issues/4095
+    # VS Code c_cpp_extension has fixed it. Please use c_cpp_extension > 0.25.1
+    c_properties["configurations"][0]["browse"]["path"].extend([f.replace("\\","/") for f in used_c_files])
 
-    create_dot_vscode_folder_in_src_directory(everything)
-    vscodeDir = everything["vscodeDir"]
-    targetSettingsJsonFullpath = os.path.join(vscodeDir, "settings.json")
-    targetCPropsJsonFullpath = os.path.join(vscodeDir, "c_cpp_properties.json")
+    vscode_dir = os.path.join(src_dir, ".vscode")
+    if(os.path.exists(vscode_dir)):
+        print(f".vscode folder already exists source dir:\n[{src_dir}]\n")
+    os.mkdir(vscode_dir)
+    print(f".vscode folder generated for source dir:\n[{src_dir}]\n")
 
-    with open(targetSettingsJsonFullpath, "w") as f:
-        json.dump(settingsDecoded, f)
+    settings_path = os.path.join(vscode_dir, "settings.json")
+    c_properties_path = os.path.join(vscode_dir, "c_cpp_properties.json")
 
-    with open(targetCPropsJsonFullpath, "w") as f:
-        json.dump(cpropsDecoded, f)
+    with open(settings_path, "w") as f:
+        json.dump(settings, f)
 
-    print("VS Code configuration JSON files generated:\n[%s]\n[%s]\n" % (targetSettingsJsonFullpath, targetCPropsJsonFullpath))
+    with open(c_properties_path, "w") as f:
+        json.dump(c_properties, f)
+
+    print(f"VS Code configuration JSON files generated:\n[{settings_path}]\n[{c_properties_path}]\n")
     return
 
-def get_ninja_rulesFile(everything):
-    everything["ninjaRulesFile"]= os.path.join(everything["bldDir"], "CMakeFiles", "rules.ninja")
-    print("Ninja rules file found:\n[%s]\n" % everything["ninjaRulesFile"])
-    return
-
-def get_ninja_build_file(everything):
-    everything["ninjaBldFile"]= os.path.join(everything["bldDir"], "build.ninja")
-    print("Ninja build file found:\n[%s]\n" % everything["ninjaBldFile"])
-    return
-
-def load_vscode_json_templates(everything):
-    scriptDir = os.path.dirname(os.path.realpath(__file__))
-    everything["settings.json"] = os.path.abspath(os.path.join(scriptDir, r"settings.json"))
-    everything["c_cpp_properties.json"] = os.path.abspath(os.path.join(scriptDir, r"c_cpp_properties.json"))
-    print("VS Code configuration JSON templates loaded.\n")
-    return
 
 def usage():
     print(os.linesep)
@@ -206,12 +181,11 @@ def usage():
     return
 
 
-if __name__=="__main__":
-    everything = dict()    
+if __name__=="__main__":   
     if(len(sys.argv)!= 4):
         usage()
     else:
-        print("zephyr2vsc ver 0.1")
+        print("zephyr2vsc ver 0.0.2")
         print("By ming.shao@intel.com")
 
         compiler_path = os.path.abspath(os.path.normpath(sys.argv[1])) # this is the fullpath of the compiler.
@@ -219,18 +193,26 @@ if __name__=="__main__":
         build_dir = os.path.abspath(os.path.normpath(sys.argv[3])) # this is the folder where build.ninja file is located.
 
         print(f"Start generating VSCode workspace for:\n[{src_dir}]\n")
-        get_ninja_rulesFile(everything)
-        get_ninja_build_file(everything)
-        load_vscode_json_templates(everything)
-        print("step 1")
-        get_ninja_rules(everything)
-        get_relevant_c_files_relative_path(everything)
-        get_all_c_files_relative_path(everything)
-        get_excluded_c_files_relative_path(everything)
-        get_included_c_files_containing_folder(everything)
 
-        generate_compilation_db(everything)
-        generate_vscode_config_jsons(everything)
-        print("Finished generating VSCode workspace for:\n[%s]\n" % everything["srcDir"])
-        
-    sys.exit(0)
+        print("step 1")
+
+        ninja_rules = get_ninja_rules(build_dir)
+        used_c_files = get_relevant_c_files_relative_path(src_dir, build_dir)
+        all_c_files = get_all_c_files_relative_path(src_dir)
+
+        unused_c_files = all_c_files - used_c_files
+        print(f"Exclude [{len(unused_c_files)}] unused C source files.\n")
+
+        used_c_files_folders = {os.path.dirname(file) for file in used_c_files}
+
+        db_full_path = generate_compilation_db(build_dir, ninja_rules)
+
+        generate_vscode_config_jsons(
+            unused_c_files,
+            used_c_files,
+            compiler_path,
+            db_full_path,
+            src_dir
+        )
+
+        print(f"Finished generating VSCode workspace for:\n[{src_dir}]\n")
