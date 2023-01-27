@@ -82,3 +82,14 @@ But for .c file browsing, it suffices, I think.
 3. Do not change the driver letters with `subst` command on Windows after a Zephyr build is made.
 
    Because the .ninja files uses absolute path and the new driver letter will break the relative path handling.
+
+## Development
+
+* Create a virtual environment:
+  * Windows: `python -m venv venv`
+  * Linux: `python3 -m venv venv`
+* Activate the virtual environment:
+  * Windows: `. venv/scripts/activate`
+  * Linux: `. venv/bin/activate`
+* Install the development dependencies to the virtual environment:
+  * `pip install .[dev]`
