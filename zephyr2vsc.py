@@ -194,23 +194,7 @@ def derive_other_configs(everything):
     get_ninja_rulesFile(everything)
     get_ninja_build_file(everything)
     load_vscode_json_templates(everything)
-    return
-
-
-def do_work(everything):
-    print("Start generating VSCode workspace for:\n[%s]\n" % everything["srcDir"])
-    derive_other_configs(everything) 
-    print("step 1")
-    get_ninja_rules(everything)
-    get_relevant_c_files_relative_path(everything)
-    get_all_c_files_relative_path(everything)
-    get_excluded_c_files_relative_path(everything)
-    get_included_c_files_containing_folder(everything)
-
-    generate_compilation_db(everything)
-    generate_vscode_config_jsons(everything)
-    print("Finished generating VSCode workspace for:\n[%s]\n" % everything["srcDir"])
-    return    
+    return 
 
 def usage():
     print(os.linesep)
@@ -238,6 +222,18 @@ if __name__=="__main__":
         everything["compilerPath"] = os.path.abspath(os.path.normpath(sys.argv[1])) # this is the fullpath of the compiler.
         everything["srcDir"] = os.path.abspath(os.path.normpath(sys.argv[2])) # this is the folder to open in VS Code.
         everything["bldDir"] = os.path.abspath(os.path.normpath(sys.argv[3])) # this is the folder where build.ninja file is located.
-        do_work(everything)
+
+        print("Start generating VSCode workspace for:\n[%s]\n" % everything["srcDir"])
+        derive_other_configs(everything) 
+        print("step 1")
+        get_ninja_rules(everything)
+        get_relevant_c_files_relative_path(everything)
+        get_all_c_files_relative_path(everything)
+        get_excluded_c_files_relative_path(everything)
+        get_included_c_files_containing_folder(everything)
+
+        generate_compilation_db(everything)
+        generate_vscode_config_jsons(everything)
+        print("Finished generating VSCode workspace for:\n[%s]\n" % everything["srcDir"])
         
     sys.exit(0)
