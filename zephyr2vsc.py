@@ -1,4 +1,10 @@
 # coding=UTF-8
+
+"""A tool to import Zephyr code into Visual Studio Code in the context of a Zephyr application.
+
+Copyright (c) 2019-2023 Ming Shao
+"""
+
 import sys
 import os.path
 import re
