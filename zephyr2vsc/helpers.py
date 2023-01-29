@@ -65,7 +65,11 @@ def generate_compilation_db(build_dir: str, ninja_rules: Set[str]) -> str:
 
     rules = " ".join(ninja_rules)
     ninja_build_command = rf"ninja -C {build_dir} -t compdb {rules}"
-    out = subprocess.run(ninja_build_command, stdout=subprocess.PIPE, shell=True).stdout.decode()
+    out = (
+        subprocess.run(ninja_build_command, stdout=subprocess.PIPE, shell=True)
+        .stdout.decode(encoding="utf-8")
+        .splitlines()
+    )
 
     # workaround for https://github.com/Microsoft/vscode-cpptools/issues/2417
     replace = {
@@ -116,15 +120,17 @@ def generate_vscode_config_jsons(
 
     # Below line is related to to https://github.com/microsoft/vscode-cpptools/issues/4095
     # VS Code c_cpp_extension has fixed it. Please use c_cpp_extension > 0.25.1
+    used_c_folders = {os.path.dirname(f) for f in used_c_files}
     c_properties["configurations"][0]["browse"]["path"].extend(  # type: ignore
-        [f.replace("\\", "/") for f in used_c_files]
+        [f.replace("\\", "/") for f in used_c_folders]
     )
 
     vscode_dir = os.path.join(src_dir, ".vscode")
     if os.path.exists(vscode_dir):
         print(f".vscode folder already exists source dir:\n[{src_dir}]\n")
-    os.mkdir(vscode_dir)
-    print(f".vscode folder generated for source dir:\n[{src_dir}]\n")
+    else:
+        os.mkdir(vscode_dir)
+        print(f".vscode folder generated for source dir:\n[{src_dir}]\n")
 
     settings_path = os.path.join(vscode_dir, "settings.json")
     c_properties_path = os.path.join(vscode_dir, "c_cpp_properties.json")
