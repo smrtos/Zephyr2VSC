@@ -45,8 +45,6 @@ jobs:
         . venv/bin/activate
         pip install west
         cd tests/fixtures
-        unset ZEPHYR_BASE
-        west init zephyrproject
         cd zephyrproject
         west update
         west zephyr-export
