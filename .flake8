@@ -4,4 +4,5 @@ extend-ignore = E203
 exclude = 
     zephyr2vsc.py,
     venv,
+    tests/fixtures/zephyrproject/*
     .*

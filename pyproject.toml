@@ -29,16 +29,16 @@ requires = [
 [tool.black]
 line-length = 100
 skip-string-normalization = 1
-extend-exclude = "zephyr2vsc.py"
+extend-exclude = "zephyr2vsc.py|tests/fixtures/zephyrproject/*"
 
 [tool.isort]
 profile = "black"
 line_length = 100
 multi_line_output = 3
-extend_skip = ["zephyr2vsc.py"]
+extend_skip = ["zephyr2vsc.py", "tests/fixtures/zephyrproject"]
 
 [tool.mypy]
-exclude = ["zephyr2vsc.py"]
+exclude = ["zephyr2vsc.py", "tests/fixtures/zephyrproject", "venv"]
 
 [tool.pytest.ini_options]
 norecursedirs = "tests/fixtures"
