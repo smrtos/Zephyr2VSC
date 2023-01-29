@@ -1,0 +1,3 @@
+[submodule "tests/fixtures/zephyrproject/zephyr"]
+	path = tests/fixtures/zephyrproject/zephyr
+	url = git@github.com:zephyrproject-rtos/zephyr.git
