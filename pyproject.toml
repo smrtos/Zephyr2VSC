@@ -39,3 +39,6 @@ extend_skip = ["zephyr2vsc.py"]
 
 [tool.mypy]
 exclude = ["zephyr2vsc.py"]
+
+[tool.pytest.ini_options]
+norecursedirs = "tests/fixtures"
