@@ -73,7 +73,7 @@ def generate_compilation_db(build_dir: str, ninja_rules: Set[str]) -> str:
         re.escape("-imacros"): "-include",
     }
     pattern = re.compile("|".join(replace.keys()))
-    fixed = map(lambda l: pattern.sub(lambda m: replace[re.escape(m.group(0))], l), out)
+    fixed = map(lambda line: pattern.sub(lambda m: replace[re.escape(m.group(0))], line), out)
 
     with open(db_full_path, "w") as f:
         f.writelines(fixed)
@@ -93,7 +93,8 @@ def generate_vscode_config_jsons(
     settings["files.exclude"]["**/.github"] = True
     settings["files.exclude"]["**/.known-issues"] = True
 
-    # I was expecting "**/.*" can be used as a shortcut to exclude all the . started files or folders.
+    # I was expecting "**/.*" can be used as a shortcut to exclude all the . started files or
+    # folders.
     # Ref: https://code.visualstudio.com/docs/editor/codebasics#_advanced-search-options
     #
     # But it turns out it will totally ruin the VS Code symbol parsing
