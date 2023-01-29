@@ -53,8 +53,6 @@ else:
     unused_c_files = all_c_files - used_c_files
     print(f"Exclude [{len(unused_c_files)}] unused C source files.\n")
 
-    used_c_files_folders = {os.path.dirname(file) for file in used_c_files}
-
     db_full_path = generate_compilation_db(build_dir, ninja_rules)
 
     generate_vscode_config_jsons(unused_c_files, used_c_files, compiler_path, db_full_path, src_dir)
