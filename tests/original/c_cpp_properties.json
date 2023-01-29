@@ -1,0 +1,18 @@
+{
+    "configurations": [
+        {
+            "name": "Zephyr",
+            "compilerPath": "",
+            "cStandard": "c99",
+            "cppStandard": "c++11",
+            "intelliSenseMode": "gcc-x64",
+            "compileCommands": "",
+            "browse": {
+                "limitSymbolsToIncludedHeaders": true,
+                "databaseFilename": "${workspaceFolder}/.vscode/browse.zephyr.db",
+                "path": []
+            }
+        }
+    ],
+    "version": 4
+}
