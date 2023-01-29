@@ -4,6 +4,7 @@ import json
 import os
 import subprocess
 from pathlib import Path
+from sys import platform
 
 import pytest
 
@@ -15,12 +16,14 @@ from zephyr2vsc.helpers import (
     get_relevant_c_files_relative_path,
 )
 
+EXE = ".exe" if platform == "win32" else ""
+
 REPO_DIRECTORY = os.getcwd()
 ORIGINAL_SCRIPT_PATH = os.path.join(REPO_DIRECTORY, "tests", "original", "zephyr2vsc.py")
 assert os.path.isfile(ORIGINAL_SCRIPT_PATH)
 
 ZEPHYR_ARM_GCC_PATH = os.path.join(
-    Path.home(), "zephyr-sdk-0.15.2", "arm-zephyr-eabi", "bin", "arm-zephyr-eabi-gcc.exe"
+    Path.home(), "zephyr-sdk-0.15.2", "arm-zephyr-eabi", "bin", f"arm-zephyr-eabi-gcc{EXE}"
 )
 assert os.path.isfile(ZEPHYR_ARM_GCC_PATH)
 
