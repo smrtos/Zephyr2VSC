@@ -1,0 +1,4 @@
+# ignore west workspace installation
+bootloader
+modules
+tools
