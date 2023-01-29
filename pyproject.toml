@@ -25,3 +25,12 @@ build-backend = "setuptools.build_meta"
 requires = [
     "setuptools >= 35.0.2",
 ]
+
+[tool.black]
+line-length = 100
+skip-string-normalization = 1
+
+[tool.isort]
+profile = "black"
+line_length = 100
+multi_line_output = 3
