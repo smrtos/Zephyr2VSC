@@ -90,8 +90,8 @@ def generate_vscode_config_jsons(
     src_dir: str,
 ):
     settings = const.SETTINGS_JSON_TEMPLATE
-    settings["files.exclude"]["**/.github"] = True
-    settings["files.exclude"]["**/.known-issues"] = True
+    settings["files.exclude"]["**/.github"] = True  # type: ignore
+    settings["files.exclude"]["**/.known-issues"] = True  # type: ignore
 
     # I was expecting "**/.*" can be used as a shortcut to exclude all the . started files or
     # folders.
@@ -103,16 +103,20 @@ def generate_vscode_config_jsons(
     # settingsDecoded["files.exclude"]["**/[.]*"] = True
 
     for unused_c_file in unused_c_files:
-        settings["files.exclude"][unused_c_file.replace("\\", "/")] = True
+        settings["files.exclude"][unused_c_file.replace("\\", "/")] = True  # type: ignore
 
     c_properties = const.C_CPP_PROPERTIES_JSON_TEMPLATE
 
-    c_properties["configurations"][0]["compileCommands"] = db_full_path.replace("\\", "/")
-    c_properties["configurations"][0]["compilerPath"] = compiler_path.replace("\\", "/")
+    c_properties["configurations"][0]["compileCommands"] = db_full_path.replace(  # type: ignore
+        "\\", "/"
+    )
+    c_properties["configurations"][0]["compilerPath"] = compiler_path.replace(  # type: ignore
+        "\\", "/"
+    )
 
     # Below line is related to to https://github.com/microsoft/vscode-cpptools/issues/4095
     # VS Code c_cpp_extension has fixed it. Please use c_cpp_extension > 0.25.1
-    c_properties["configurations"][0]["browse"]["path"].extend(
+    c_properties["configurations"][0]["browse"]["path"].extend(  # type: ignore
         [f.replace("\\", "/") for f in used_c_files]
     )
 
