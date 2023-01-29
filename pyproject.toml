@@ -29,8 +29,13 @@ requires = [
 [tool.black]
 line-length = 100
 skip-string-normalization = 1
+extend-exclude = "zephyr2vsc.py"
 
 [tool.isort]
 profile = "black"
 line_length = 100
 multi_line_output = 3
+extend_skip = ["zephyr2vsc.py"]
+
+[tool.mypy]
+exclude = ["zephyr2vsc.py"]
