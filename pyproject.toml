@@ -9,6 +9,9 @@ authors = [
 readme = "ReadMe.md"
 requires-python = ">=3.8"
 
+[tool.setuptools]
+packages = ["zephyr2vsc"]
+
 [project.optional-dependencies]
 dev = [
     "black >= 22.3.0",
