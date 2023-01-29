@@ -52,7 +52,7 @@ def get_relevant_c_files_relative_path(src_dir: str, build_dir: str) -> Set[str]
                     c_files.add(os.path.normpath(os.path.join(build_dir, c_file)))
                 else:
                     # get the relative path to the src_dir
-                    c_files.add(os.path.relpath(c_files, src_dir))
+                    c_files.add(os.path.relpath(c_file, src_dir))
 
     print(f"Found [{len(c_files)}] relevant C source files.\n")
     return c_files
