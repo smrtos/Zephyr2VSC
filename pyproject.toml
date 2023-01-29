@@ -8,6 +8,7 @@ authors = [
 ]
 readme = "ReadMe.md"
 requires-python = ">=3.8"
+packages = ["zephyr2vsc"]
 
 [project.optional-dependencies]
 dev = [
