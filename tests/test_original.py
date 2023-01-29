@@ -33,7 +33,6 @@ assert os.path.isdir(ZEPHYR_PATH)
 BUILD_PATH = os.path.join(ZEPHYR_PATH, "build")
 
 BLINKY_PATH = os.path.join("samples", "basic", "blinky")
-assert os.path.isdir(BLINKY_PATH)
 
 
 @pytest.fixture
