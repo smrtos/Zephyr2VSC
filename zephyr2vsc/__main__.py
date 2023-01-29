@@ -1,9 +1,15 @@
 """The CLI entrypoint of zephyr2vsc."""
 
-import sys
 import os
+import sys
 
-from zephyr2vsc.helpers import get_all_c_files_relative_path, generate_compilation_db, generate_vscode_config_jsons, get_ninja_rules, get_relevant_c_files_relative_path
+from zephyr2vsc.helpers import (
+    generate_compilation_db,
+    generate_vscode_config_jsons,
+    get_all_c_files_relative_path,
+    get_ninja_rules,
+    get_relevant_c_files_relative_path,
+)
 
 USAGE = f"""
 {os.linesep}
@@ -20,15 +26,21 @@ By ming.shao@intel.com
   <bldDir>: the Zephyr build folder where build.ninja file is located.
 """
 
-if(len(sys.argv)!= 4):
+if len(sys.argv) != 4:
     print(USAGE)
 else:
     print("zephyr2vsc ver 0.0.2")
     print("By ming.shao@intel.com")
 
-    compiler_path = os.path.abspath(os.path.normpath(sys.argv[1])) # this is the fullpath of the compiler.
-    src_dir = os.path.abspath(os.path.normpath(sys.argv[2])) # this is the folder to open in VS Code.
-    build_dir = os.path.abspath(os.path.normpath(sys.argv[3])) # this is the folder where build.ninja file is located.
+    compiler_path = os.path.abspath(
+        os.path.normpath(sys.argv[1])
+    )  # this is the fullpath of the compiler.
+    src_dir = os.path.abspath(
+        os.path.normpath(sys.argv[2])
+    )  # this is the folder to open in VS Code.
+    build_dir = os.path.abspath(
+        os.path.normpath(sys.argv[3])
+    )  # this is the folder where build.ninja file is located.
 
     print(f"Start generating VSCode workspace for:\n[{src_dir}]\n")
 
@@ -45,12 +57,6 @@ else:
 
     db_full_path = generate_compilation_db(build_dir, ninja_rules)
 
-    generate_vscode_config_jsons(
-        unused_c_files,
-        used_c_files,
-        compiler_path,
-        db_full_path,
-        src_dir
-    )
+    generate_vscode_config_jsons(unused_c_files, used_c_files, compiler_path, db_full_path, src_dir)
 
     print(f"Finished generating VSCode workspace for:\n[{src_dir}]\n")

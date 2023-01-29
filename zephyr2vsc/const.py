@@ -7,11 +7,11 @@ SETTINGS_JSON_TEMPLATE = {
         "**/.hg": True,
         "**/CVS": True,
         "**/.DS_Store": True,
-        "**/test*":True
+        "**/test*": True,
     },
     "C_Cpp.exclusionPolicy": "checkFilesAndFolders",
-	"C_Cpp.intelliSenseEngine": "Default",
-	"cmake.configureOnOpen": False
+    "C_Cpp.intelliSenseEngine": "Default",
+    "cmake.configureOnOpen": False,
 }
 
 C_CPP_PROPERTIES_JSON_TEMPLATE = {
@@ -23,13 +23,12 @@ C_CPP_PROPERTIES_JSON_TEMPLATE = {
             "cppStandard": "c++11",
             "intelliSenseMode": "gcc-x64",
             "compileCommands": "",
-            "browse": 
-            {
+            "browse": {
                 "limitSymbolsToIncludedHeaders": True,
                 "databaseFilename": "${workspaceFolder}/.vscode/browse.zephyr.db",
-                "path": []
-            }
+                "path": [],
+            },
         }
     ],
-    "version": 4
+    "version": 4,
 }
