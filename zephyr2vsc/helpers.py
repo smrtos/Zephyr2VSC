@@ -128,7 +128,7 @@ def generate_vscode_config_jsons(
     vscode_dir = os.path.join(src_dir, ".vscode")
     if os.path.exists(vscode_dir):
         print(f".vscode folder already exists source dir:\n[{src_dir}]\n")
-    else:
+    else:  # pragma: no cover
         os.mkdir(vscode_dir)
         print(f".vscode folder generated for source dir:\n[{src_dir}]\n")
 
