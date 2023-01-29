@@ -59,11 +59,17 @@ jobs:
         ./setup.sh
     - name: Formatting
       run: |
+        . venv/bin/activate
         black --check .
         isort --check-only .
     - name: Linting
       run: |
+        . venv/bin/activate
         flake8 .
         mypy .
-    - name: Test with pytest
-      run: 
+    - name: Testing
+      run: |
+        . venv/bin/activate
+        coverage erase
+        coverage run -m pytest
+        coverage report
