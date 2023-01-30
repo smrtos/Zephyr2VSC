@@ -92,4 +92,34 @@ But for .c file browsing, it suffices, I think.
   * Windows: `. venv/scripts/activate`
   * Linux: `. venv/bin/activate`
 * Install the development dependencies to the virtual environment:
-  * `pip install .[dev]`
+  * `pip install zephyr2vsc[dev]`
+
+## Testing
+
+* All PRs must pass:
+  * `black --check .`
+  * `isort --check-only .`
+  * `flake8 .`
+  * `mypy .`
+  * VSCode: Terminal -> Run Task... -> All Tests
+* Complete tests rely on a Zephyr environment being available.  This will be run in a Github Workflow on PR.  If you'd like to get it running on your local environment:
+  * Clone Zephyr into tests/fixtures/zephyrproject
+    * `git submodule init`
+    * `git submodule update`
+  * Install the dependencies for Zephyr (if you haven't already): https://docs.zephyrproject.org/latest/develop/getting_started/index.html#install-dependencies
+  * Below is modification of: https://docs.zephyrproject.org/latest/develop/getting_started/index.html#get-zephyr-and-install-python-dependencies
+    * Use the exisisting venv: `. venv/bin/activate` (linux) or `. venv/scripts/activate` (windows)
+    * `pip install west`
+    * `cd tests/fixtures`
+    * `west init zephyrproject`
+    * `cd zephyrproject`
+    * `west update`
+    * `west zephyr-export`
+    * `pip install -r zephyr/scripts/requirements.txt`
+  * Install Zephyr SDK 0.15.2 at `$HOME` (if you haven't already): https://docs.zephyrproject.org/latest/develop/getting_started/index.html#install-zephyr-sdk
+    * TODO: we can add an environment variable for the Zephyr SDK location and version in the future; please PR if you need this
+* Now you can run tests: `pytest`
+  * The unit tests will:
+    * compile a sample zephyr project
+    * run `zephyr2vsc` on it
+    * (so they take a while)
