@@ -38,15 +38,15 @@ BLINKY_PATH = os.path.join("samples", "basic", "blinky")
 @pytest.fixture
 def blinky():
     process = subprocess.run(
-        f"west build -p always -b stm32g081b_eval {BLINKY_PATH}", cwd=ZEPHYR_PATH
+        ["west", "build", "-p", "always", "-b", "stm32g081b_eval", BLINKY_PATH], cwd=ZEPHYR_PATH
     )
     assert process.returncode == 0
     yield
 
 
 def test_blinky(blinky: None):
-    command = f"python {ORIGINAL_SCRIPT_PATH} {ZEPHYR_ARM_GCC_PATH} {ZEPHYR_PATH} {BUILD_PATH}"
-    subprocess.run(command, stdout=subprocess.PIPE, shell=True)
+    command = ["python", ORIGINAL_SCRIPT_PATH, ZEPHYR_ARM_GCC_PATH, ZEPHYR_PATH, BUILD_PATH]
+    subprocess.run(command, stdout=subprocess.PIPE)
     with open(os.path.join(BUILD_PATH, "zephyr_compile_db.json"), "r") as f:
         compile_db_original = json.load(f)
     with open(os.path.join(ZEPHYR_PATH, ".vscode", "settings.json"), "r") as f:
@@ -54,8 +54,8 @@ def test_blinky(blinky: None):
     with open(os.path.join(ZEPHYR_PATH, ".vscode", "c_cpp_properties.json"), "r") as f:
         c_properties_original = json.load(f)
 
-    command = f"python -m zephyr2vsc {ZEPHYR_ARM_GCC_PATH} {ZEPHYR_PATH} {BUILD_PATH}"
-    subprocess.run(command, stdout=subprocess.PIPE, shell=True)
+    command = ["python", "-m", "zephyr2vsc", ZEPHYR_ARM_GCC_PATH, ZEPHYR_PATH, BUILD_PATH]
+    subprocess.run(command, stdout=subprocess.PIPE)
     with open(os.path.join(BUILD_PATH, "zephyr_compile_db.json"), "r") as f:
         compile_db = json.load(f)
     with open(os.path.join(ZEPHYR_PATH, ".vscode", "settings.json"), "r") as f:
