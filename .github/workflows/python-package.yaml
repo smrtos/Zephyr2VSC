@@ -5,7 +5,7 @@ name: Zephyr2VSC
 
 on:
   push:
-    branches: [ refactor/make-module ]
+    branches: [ $default-branch ]
   pull_request:
     branches: [ $default-branch ]
 
