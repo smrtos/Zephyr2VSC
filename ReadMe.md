@@ -51,7 +51,7 @@ But for .c file browsing, it suffices, I think.
 
 2. Goto the extracted folder.
 
-3. Run "python zephyr2vsc.py" to see the usage info and run it. 
+3. Run `python -m zephyr2vsc` to see the usage info and run it. 
 
    ![zephyr2vs.usage](https://raw.githubusercontent.com/smrtos/Zephyr2VSC/master/pics/zephyr2vs.usage.png)
 
